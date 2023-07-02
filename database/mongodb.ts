@@ -7,7 +7,7 @@ import config from '../config'
 
 let database: Mongoose.Connection
 const connectionUrl = `mongodb://${config.mongodb.user}:${config.mongodb.password}@${config.mongodb.host}:${config.mongodb.port}/${config.mongodb.dbName}`
-const connectionStr = `${connectionUrl}?${config.env === 'local' ? 'authSource=admin' : 'ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@libsynmongodb@'}`
+const connectionStr = `${connectionUrl}?${config.env === 'local' ? 'authSource=admin' : `ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=${config.mongodb.appName}`}`
 
 // @ts-expect-error
 export const connect = async (context: Context): Promise<Connection> | Promise<void> => {

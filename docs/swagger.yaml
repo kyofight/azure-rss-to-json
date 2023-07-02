@@ -1,8 +1,8 @@
 openapi: 3.0.3
 servers:
-  - url: <url>
+  - url: https://azure-rss-to-json-dev.azurewebsites.net/api/podcast
     description: Dev server
-  - url: <url>
+  - url: https://azure-rss-to-json.azurewebsites.net/api/podcast
     description: Prod server
 
 info:
