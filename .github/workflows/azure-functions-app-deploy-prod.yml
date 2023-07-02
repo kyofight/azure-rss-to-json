@@ -23,7 +23,7 @@ name: Deploy PROD project to Azure Function App
 on:
   push:
     branches:
-      - release
+      - main
 
 env:
   BRANCH_ENVIRONMENT: "${{ github.ref == 'refs/heads/release' && 'prod' || 'dev' }}"
