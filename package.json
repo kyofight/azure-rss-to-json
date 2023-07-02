@@ -1,0 +1,38 @@
+{
+  "name": "azure-rss-to-json",
+  "version": "1.0.0",
+  "author": "Kyo Chan"
+  "description": "podcast rss to json",
+  "scripts": {
+    "build": "tsc ",
+    "watch": "tsc -w",
+    "prestart": "npm run build",
+    "fix": "ts-standard --fix",
+    "prepare": "git config --local core.hooksPath .githooks",
+    "start": "func start",
+    "start:api": "func start --functions podcast-shows-get podcast-show-get podcast-episodes-get podcast-episode-get",
+    "start:timer": "func start --functions rss-process",
+    "dev:timer": "source env.sh && node test.js",
+    "test": "echo \"No tests yet...\"",
+    "upload": "func azure functionapp publish"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.1.3",
+    "mongoose": "^7.0.1",
+    "axios": "^1.2.2"
+  },
+  "devDependencies": {
+    "@azure/functions": "^3.0.0",
+    "@types/node": "16.x",
+    "lint-staged": "^13.1.0",
+    "ts-standard": "^12.0.2",
+    "typescript": "^4.0.0"
+  },
+  "ts-standard": {
+    "ignore": [
+      "dist",
+      "rss-process/rssParser.ts",
+      "docs"
+    ]
+  }
+}

@@ -1,0 +1,289 @@
+openapi: 3.0.3
+servers:
+  - url: <url>
+    description: Dev server
+  - url: <url>
+    description: Prod server
+
+info:
+  description: |-
+    Fetch the RSS feed from libsyn regularly and provide API for query of the RSS data
+  version: 1.0.0
+  title: RSS Feed API
+
+tags:
+  - name: postcast
+    description: Libsyn Podcasts
+
+paths:
+  /shows:
+    get:
+      tags:
+        - postcast
+      summary: List shows
+      description: List shows
+      operationId: getShows
+      parameters:
+        - $ref: "#/components/parameters/pageSize"
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/fieldSearch"
+        - $ref: "#/components/parameters/fieldSearchQuery"
+        - $ref: "#/components/parameters/selectExcl"
+        - $ref: "#/components/parameters/sortBy"
+        - $ref: "#/components/parameters/sortSeq"
+        - $ref: "#/components/parameters/isWithEpisode"
+        - $ref: "#/components/parameters/pageSizeEp"
+        - $ref: "#/components/parameters/pageEp"
+        - $ref: "#/components/parameters/fieldSearchEp"
+        - $ref: "#/components/parameters/fieldSearchQueryEp"
+        - $ref: "#/components/parameters/selectExclEp"
+        - $ref: "#/components/parameters/sortByEp"
+        - $ref: "#/components/parameters/sortSeqEp"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Show'
+                  query:
+                    $ref: '#/components/schemas/Query'
+        '400':
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /shows/{showId}:
+    get:
+      tags:
+        - postcast
+      summary: Get a show detail
+      description: Get a show detail
+      operationId: getShow
+      parameters:
+        - in: path
+          name: showId
+          required: true
+          schema:
+            type: integer
+          description: The show ID
+        - $ref: "#/components/parameters/selectExcl"
+        - $ref: "#/components/parameters/isWithEpisode"
+        - $ref: "#/components/parameters/pageEp"
+        - $ref: "#/components/parameters/pageSizeEp"
+        - $ref: "#/components/parameters/fieldSearchEp"
+        - $ref: "#/components/parameters/fieldSearchQueryEp"
+        - $ref: "#/components/parameters/selectExclEp"
+        - $ref: "#/components/parameters/sortByEp"
+        - $ref: "#/components/parameters/sortSeqEp"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Show'
+                  query:
+                    $ref: '#/components/schemas/Query'
+        '400':
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /episodes:
+    get:
+      tags:
+        - postcast
+      summary: List episodes
+      description: List episodes
+      operationId: getEpisodes
+      parameters:
+        - $ref: "#/components/parameters/selectExcl"
+        - $ref: "#/components/parameters/pageSizeEp"
+        - $ref: "#/components/parameters/pageEp"
+        - $ref: "#/components/parameters/fieldSearchEp"
+        - $ref: "#/components/parameters/fieldSearchQueryEp"
+        - $ref: "#/components/parameters/selectExclEp"
+        - $ref: "#/components/parameters/sortByEp"
+        - $ref: "#/components/parameters/sortSeqEp"
+        - $ref: "#/components/parameters/isWithShow"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Episode'
+                  query:
+                    $ref: '#/components/schemas/Query'
+        '400':
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /episodes/{episodeId}:
+    get:
+      tags:
+        - postcast
+      summary: Get an episode detail
+      description: Get an episode detail
+      operationId: getEpisode
+      parameters:
+        - in: path
+          name: episodeId
+          required: true
+          schema:
+            type: string
+          description: The episode ID
+        - $ref: "#/components/parameters/selectExcl"
+        - $ref: "#/components/parameters/isWithShow"
+        - $ref: "#/components/parameters/selectExclEp"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Episode'
+                  query:
+                    $ref: '#/components/schemas/Query'
+        '400':
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  parameters:
+    page:
+      in: query
+      name: page
+      schema:
+        type: integer
+        default: 1
+    pageSize:
+      in: query
+      name: pageSize
+      schema:
+        type: integer
+        default: 10
+    sortBy:
+      in: query
+      name: sortBy
+      schema:
+        type: string
+        default: displayOrder
+    sortSeq:
+      in: query
+      name: sortSeq
+      schema:
+        type: string
+        default: asc
+    fieldSearch:
+      in: query
+      name: fieldSearch
+      schema:
+        type: string
+        default: '[]'
+    fieldSearchQuery:
+      in: query
+      name: fieldSearchQuery
+      schema:
+        type: string
+        default: '[]'
+    selectExcl:
+      in: query
+      name: selectExcl
+      schema:
+        type: string
+        default: -_id
+    isWithShow:
+      in: query
+      name: isWithShow
+      schema:
+        type: boolean
+        default: false
+    isWithEpisode:
+      in: query
+      name: isWithEpisode
+      schema:
+        type: boolean
+        default: false
+    pageEp:
+      in: query
+      name: pageEp
+      schema:
+        type: integer
+        default: 1
+    pageSizeEp:
+      in: query
+      name: pageSizeEp
+      schema:
+        type: integer
+        default: 10
+    sortByEp:
+      in: query
+      name: sortByEp
+      schema:
+        type: string
+        default: published
+    sortSeqEp:
+      in: query
+      name: sortSeqEp
+      schema:
+        type: string
+        default: desc
+    fieldSearchEp:
+      in: query
+      name: fieldSearchEp
+      schema:
+        type: string
+        default: '[]'
+    fieldSearchQueryEp:
+      in: query
+      name: fieldSearchQueryEp
+      schema:
+        type: string
+        default: '[]'
+    selectExclEp:
+      in: query
+      name: selectExclEp
+      schema:
+        type: string
+        default: -content -content_encoded -_id -enclosures._id
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Unexpected Error
+    Show:
+      type: object
+      example: { "show detail": "try it yourself" }
+    Episode:
+      type: object
+      example: { "episode detail": "try it yourself" }
+    Query:
+      type: object
+      example: { "show query": "try it yourself" }
