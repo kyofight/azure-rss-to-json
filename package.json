@@ -1,7 +1,7 @@
 {
   "name": "azure-rss-to-json",
   "version": "1.0.0",
-  "author": "Kyo Chan"
+  "author": "Kyo Chan",
   "description": "podcast rss to json",
   "scripts": {
     "build": "tsc ",
