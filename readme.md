@@ -1,5 +1,8 @@
 # RSS Podcast to JSON
 
+[![Deploy DEV project to Azure Function App](https://github.com/kyofight/azure-rss-to-json/actions/workflows/azure-functions-app-deploy-dev.yml/badge.svg)](https://github.com/kyofight/azure-rss-to-json/actions/workflows/azure-functions-app-deploy-dev.yml)
+[![Deploy PROD project to Azure Function App](https://github.com/kyofight/azure-rss-to-json/actions/workflows/azure-functions-app-deploy-prod.yml/badge.svg)](https://github.com/kyofight/azure-rss-to-json/actions/workflows/azure-functions-app-deploy-prod.yml)
+
 ## Init
 1. yarn global add azure-functions-core-tools@4 --unsafe-perm true
 2. yarn
